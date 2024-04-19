@@ -19,11 +19,10 @@ exports.createPost = async (req,res) =>{
 
 exports.getAllPost = async (req,res)=>{
     try {
-        const allPost = await Post.find()
+        const post = await Post.find().populate("comments").populate("likes").exec()
 
         res.status(200).json({
-            success:true,
-            post:allPost,
+            post
         })
     } catch (error) {
         return res.status(400).json({
